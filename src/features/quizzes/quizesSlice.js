@@ -1,32 +1,33 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { createAsyncThunk } from "@reduxjs/toolkit";
-
-// const initialState = {
-//   quizzes: {}
-// }
 const quizzesSlice = createSlice({
   name: "quizzes",
   initialState: {
     quizzes: {}
   },
-  reducers:{
-    addQuiz: (state, action)=>{
-      const { id , name , topicId ,cardIds} = action.payload;
-      state.quizzes[id]={
-        id:id,
-        name:name,
+  reducers: {
+    addQuiz: (state, action) => {
+      console.log("Action", action);
+      const { id, name, topicId, cardIds } = action.payload;
+      state.quizzes[id] = {
+        id: id,
+        name: name,
         topicId: topicId,
-        cardIds:cardIds
-      }
-  }
-
-  }
+        cardIds: cardIds
+      };
+    }
+  },
+  extraReducers: {}
 });
 
-export const selectQuizzes =(state)=>
-{
- return  state.quizzes.quizzes
+export const selectQuizzes = (state) => {
+  return state.quizzes.quizzes;
+};
 
-}
+export const createNewQuiz = (payload) => {
+  return (dispatch) => {
+    dispatch(addQuiz(payload));
+  };
+};
+
 export default quizzesSlice.reducer;
-export const  {addQuiz} =  quizzesSlice.actions
+export const { addQuiz } = quizzesSlice.actions;
